@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="?attr/actionModeCloseDrawable" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  Music"
+                android:textSize="20dp" />
+
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:tabIndicatorGravity="top">
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="0dp">
+
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/playBar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignBottom="@+id/linear"
+        android:layout_marginBottom="0dp"
+        android:background="@android:color/darker_gray"
+        android:textAlignment="center">
+
+        <ImageView
+            android:id="@+id/shuffle"
+            android:layout_width="47dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/shuffle" />
+
+        <ImageView
+            android:id="@+id/prev"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="-194dp"
+            android:layout_toStartOf="@+id/play"
+            android:src="@drawable/prev" />
+
+        <ImageView
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@+id/shuffle"
+            android:layout_alignEnd="@+id/repeat"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="143dp"
+            android:src="@drawable/pause" />
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="23dp"
+            android:layout_toStartOf="@+id/repeat"
+            android:src="@drawable/next" />
+
+        <ImageView
+            android:id="@+id/repeat"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="0dp"
+            android:src="@drawable/repeat" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
