@@ -1,23 +1,13 @@
 package com.example.music;
-
 import android.Manifest;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -29,45 +19,64 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+    private Context context;
 
+    public static Player player;
 
-
+    public static Tab curentTab;
     public static final int RUNTIME_PERMISSION_CODE = 7;
 
+    private ImageView nextBtn, playBtn, prevBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
-
+        context = getApplication().getApplicationContext();
+        player = new Player(context);
 
         AndroidRuntimePermission();
+
+        nextBtn = findViewById(R.id.next);
+        prevBtn = findViewById(R.id.prev);
+        playBtn = findViewById(R.id.play);
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("VCS", "onClick: click next");
+                player.next();
+
+            }
+        });
+
+        prevBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("VCS", "onClick: click prev");
+                player.prev();
+            }
+        });
+
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("VCS", "onClick: click pause");
+                if (player.isPlaying()){
+                    player.pause();
+                }else {
+                    player.play();
+                }
+            }
+        });
 
     }
 
@@ -83,49 +92,49 @@ public class MainActivity extends AppCompatActivity{
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         viewPager.setCurrentItem(0);
-
+        curentTab = PagerAdapter.tab1;
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            Music playing;
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 //Log.d("VCS", "onTabSelected: " + tab.getPosition());
-                viewPager.setCurrentItem(tab.getPosition());
+
                 switch (tab.getPosition()){
                     case 0:
-                        Log.d("VCS", "onTabSelected: " + PagerAdapter.tab1.data);
+                        curentTab = PagerAdapter.tab1;
                         break;
                     case 1:
-                        Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab2.data);
-                        PagerAdapter.tab2.playing = playing;
-                        PagerAdapter.tab2.updateImage();
+                        //Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab2.data);
+                        curentTab = PagerAdapter.tab2;
                         break;
                     case 2:
-                        Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab3.data);
-                        PagerAdapter.tab3.playing = playing;
-                        PagerAdapter.tab3.updateLyric();
-
+                        //Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab3.data);
+                        curentTab = PagerAdapter.tab3;
                         break;
                 }
+
+                viewPager.setCurrentItem(tab.getPosition());
+                curentTab.update();
 
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 //Log.d("VCS", "onTabUnselected: " + tab.getPosition() + tab.view);
-                switch (tab.getPosition()){
-                    case 0:
-                        Log.d("VCS", "onTabSelected: " + PagerAdapter.tab1.data);
-                        playing = PagerAdapter.tab1.playing;
-                        break;
-                    case 1:
-                        Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab2.data);
-                        break;
-                    case 2:
-                        Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab3.data);
-
-
-                        break;
-                }
+//                switch (tab.getPosition()){
+//                    case 0:
+//                        Log.d("VCS", "onTabSelected: " + PagerAdapter.tab1.data);
+//                        playing = PagerAdapter.tab1.playing;
+//                        break;
+//                    case 1:
+//                        Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab2.data);
+//                        break;
+//                    case 2:
+//                        Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab3.data);
+//
+//
+//                        break;
+//                }
             }
 
             @Override

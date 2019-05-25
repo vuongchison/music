@@ -31,9 +31,7 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Tab1 extends Fragment {
-    public String data = "tab1";
-    public Music playing;
+public class Tab1 extends Tab {
 
     @Override
     public void setArguments(@Nullable Bundle args) {
@@ -42,10 +40,11 @@ public class Tab1 extends Fragment {
     }
 
     ListView mListView;
-    private ArrayList mMusicList;
+
     ArrayAdapter mAdapter;
 
     Context context;
+
 
 
     @Override
@@ -58,32 +57,26 @@ public class Tab1 extends Fragment {
 
         mListView = (ListView) view.findViewById(R.id.musicList);
 
-        mMusicList = Music.getAll(context);
-        mAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, mMusicList);
+        mAdapter = new ArrayAdapter<Music>(context, android.R.layout.simple_list_item_1, MainActivity.player.getMusicList());
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Music m = (Music) mMusicList.get(position);
-//                Log.d("VCS", "onItemClick: " + m.get(FieldKey.LYRICS));
-                playing = m;
                 ((ViewPager) getActivity().findViewById(R.id.pager)).setCurrentItem(1);
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                try {
-                    mediaPlayer.setDataSource(m.getFilename());
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
+                MainActivity.curentTab = PagerAdapter.tab2;
+                MainActivity.player.play(position);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-                mediaPlayer.start();
+
             }
         });
         mListView.setAdapter(mAdapter);
-        mAdapter.addAll(mMusicList);
+        mAdapter.addAll(MainActivity.player.getMusicList());
         return view;
     }
 
 
+    @Override
+    public void update() {
+
+    }
 }

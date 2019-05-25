@@ -27,23 +27,10 @@ public class Music {
     private Tag tag = null;
     private String title;
 
-    public byte[] getArtwork(){
-        if (this.f == null){
-            read();
-        }
-        if (tag == null)
-            return null;
-        Artwork artwork = tag.getFirstArtwork();
-        if (artwork == null)
-            return null;
-        return tag.getFirstArtwork().getBinaryData();
-    }
 
     public Music(String filename, String title) {
-
             this.filename = filename;
             this.title = title;
-
     }
 
     private void read(){
@@ -71,6 +58,27 @@ public class Music {
         if (this.tag != null)
             return this.tag.getFirst(id);
         return "";
+    }
+
+
+    public byte[] getArtwork(){
+        if (this.f == null){
+            read();
+        }
+        if (tag == null)
+            return null;
+        Artwork artwork = tag.getFirstArtwork();
+        if (artwork == null)
+            return null;
+        return tag.getFirstArtwork().getBinaryData();
+    }
+
+    public String getLyric(){
+        return get(FieldKey.LYRICS);
+    }
+
+    public String getTitle(){
+        return title;
     }
 
     public boolean hasTag(){
@@ -136,4 +144,5 @@ public class Music {
     public String getFilename() {
         return filename;
     }
+
 }

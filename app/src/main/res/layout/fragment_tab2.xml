@@ -16,6 +16,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="52dp"
-        android:src="@drawable/adele_album" />
+        android:src="@drawable/adele_album"
+        app:srcCompat="@drawable/music_default_icon" />
 
 </RelativeLayout>
