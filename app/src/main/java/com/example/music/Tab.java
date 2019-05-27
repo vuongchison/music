@@ -11,7 +11,4 @@ public abstract class Tab extends Fragment {
         return MainActivity.player.getPlaying();
     }
 
-    public void setPlaying(Music m){
-        MainActivity.player.setPlaying(m);
-    }
 }

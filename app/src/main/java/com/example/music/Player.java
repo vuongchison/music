@@ -19,8 +19,7 @@ public class Player {
     private boolean repeat = false, shuffle = false;
     private MediaPlayer mediaPlayer;
     Context context;
-    private static final String TAG = "NONAME";
-    MediaPlayer.OnCompletionListener onCompletionListener;
+    private MediaPlayer.OnCompletionListener onCompletionListener;
 
     public Player(Context context){
         this.context = context;
@@ -48,10 +47,6 @@ public class Player {
         return playing;
     }
 
-    public static void setPlaying(Music playing) {
-        Player.playing = playing;
-    }
-
     public void play(Music music){
         stop();
         try {
@@ -64,7 +59,7 @@ public class Player {
             playing = music;
             MainActivity.currentTab.update();
         } catch (Exception e){
-            Log.e("NONAME", "Bug: " + e.getMessage());
+            Log.e("", "Bug: " + e.getMessage());
             mediaPlayer.release();
         }
 
@@ -77,10 +72,10 @@ public class Player {
 
     public void stop(){
 //        mediaPlayer.reset();
-        Log.e("NONAME", "stop: " + mediaPlayer + mediaPlayer.isPlaying() );
+        Log.e("", "stop: " + mediaPlayer + mediaPlayer.isPlaying() );
 
         if (mediaPlayer != null && mediaPlayer.isPlaying()){
-            Log.e("NONAME", "stop: " );
+            Log.e("", "stop: " );
             mediaPlayer.stop();
         }
 
