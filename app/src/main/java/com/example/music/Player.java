@@ -82,7 +82,8 @@ public class Player {
     }
 
     public void pause(){
-        mediaPlayer.pause();
+        if (playing != null && mediaPlayer != null)
+            mediaPlayer.pause();
     }
 
     public void play(){

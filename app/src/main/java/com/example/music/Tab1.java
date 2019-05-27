@@ -63,6 +63,7 @@ public class Tab1 extends Tab {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ((ViewPager) getActivity().findViewById(R.id.pager)).setCurrentItem(1);
                 MainActivity.playBtn.setImageResource(R.drawable.pause);
+                MainActivity.isPlay = true;
                 MainActivity.currentTab = PagerAdapter.tab2;
                 MainActivity.player.play(position);
 

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 public class Tab2 extends Tab {
 
-
+    private Music playing;
     private ImageView image;
 
     @Override
@@ -31,7 +31,8 @@ public class Tab2 extends Tab {
 
     public void update(){
         Music playing = getPlaying();
-        if (playing != null) {
+        if (playing != null && playing != this.playing) {
+            this.playing = playing;
             Log.d("VCS", "updateImage: " + playing.getTitle());
             byte[] imageData = playing.getArtwork();
             if (imageData != null)

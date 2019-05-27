@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class Tab3 extends Tab {
 
-
+    private Music playing;
     private TextView lyricView;
 
     @Override
@@ -21,8 +21,11 @@ public class Tab3 extends Tab {
 
     public void update(){
         Music playing = getPlaying();
-        if (playing != null)
+        if (playing != null && playing != this.playing){
+            this.playing = playing;
             lyricView.setText(playing.getLyric());
+        }
+
     }
 
 }

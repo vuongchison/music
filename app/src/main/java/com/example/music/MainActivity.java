@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
     public static final int RUNTIME_PERMISSION_CODE = 7;
 
     public static ImageView nextBtn, playBtn, prevBtn, repeatBtn, shuffleBtn;
+    public static boolean isPlay = false, isRepeat = false, isShuffle = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +73,14 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Log.d("VCS", "onClick: click pause");
-                if (player.isPlaying()){
+                if (isPlay){
                     player.pause();
                     playBtn.setImageResource(R.drawable.play);
+                    isPlay = false;
                 }else {
                     player.play();
                     playBtn.setImageResource(R.drawable.pause);
+                    isPlay = true;
                 }
             }
         });
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void createLayout(){
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Dsách phát"));
+        tabLayout.addTab(tabLayout.newTab().setText("Dsách nhạc"));
         tabLayout.addTab(tabLayout.newTab().setText("Đang phát"));
         tabLayout.addTab(tabLayout.newTab().setText("Lời bài hát"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
