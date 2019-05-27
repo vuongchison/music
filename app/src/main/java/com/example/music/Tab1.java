@@ -65,12 +65,9 @@ public class Tab1 extends Tab {
                 MainActivity.curentTab = PagerAdapter.tab2;
                 MainActivity.player.play(position);
 
-
-
             }
         });
         mListView.setAdapter(mAdapter);
-        mAdapter.addAll(MainActivity.player.getMusicList());
         return view;
     }
 

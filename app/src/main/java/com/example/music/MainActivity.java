@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity{
     public static Tab curentTab;
     public static final int RUNTIME_PERMISSION_CODE = 7;
 
-    private ImageView nextBtn, playBtn, prevBtn;
+    private ImageView nextBtn, playBtn, prevBtn, repeatBtn, shuffleBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity{
         nextBtn = findViewById(R.id.next);
         prevBtn = findViewById(R.id.prev);
         playBtn = findViewById(R.id.play);
+        repeatBtn = findViewById(R.id.repeat);
+        shuffleBtn = findViewById(R.id.shuffle);
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,32 @@ public class MainActivity extends AppCompatActivity{
                     player.pause();
                 }else {
                     player.play();
+                }
+            }
+        });
+
+        repeatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (player.isRepeat())
+                {
+                    player.setRepeat(false);
+                }
+                else
+                {
+                    player.setRepeat(true);
+                }
+            }
+        });
+
+        shuffleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (player.isShuffle()){
+                    player.setShuffle(false);
+                }
+                else{
+                    player.setShuffle(true);
                 }
             }
         });

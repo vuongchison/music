@@ -8,13 +8,15 @@ import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Player {
 
     public static Music playing;
     public static ArrayList<Music> musicList;
     public static ArrayList<Music> playList;
-
+    private boolean repeat = false, shuffle = false;
     private MediaPlayer mediaPlayer;
     Context context;
     private static final String TAG = "NONAME";
@@ -101,10 +103,14 @@ public class Player {
     }
 
     public void next(){
-//        stop();
-        int i = playList.indexOf(playing);
-        if (i < playList.size() - 1){
-            play( playList.get(i + 1));
+        if (repeat){
+            play(playing);
+        }
+        else {
+            int i = playList.indexOf(playing);
+            if (i < playList.size() - 1) {
+                play(playList.get(i + 1));
+            }
         }
     }
 
@@ -115,7 +121,33 @@ public class Player {
         }
     }
 
+    public boolean isRepeat(){
+        return repeat;
+    }
 
+    public void setRepeat(boolean repeat){
+        this.repeat = repeat;
+        mediaPlayer.setLooping(repeat);
+    }
+
+    public boolean isShuffle(){
+        return shuffle;
+    }
+
+    public void setShuffle(boolean shuffle){
+        if (shuffle){
+            this.shuffle();
+        }
+        else{
+            this.shuffle = false;
+            this.playList = (ArrayList<Music>) this.musicList.clone();
+        }
+    }
+
+    public void shuffle(){
+        shuffle = true;
+        Collections.shuffle(playList);
+    }
 
     public static ArrayList<Music> getMusicList() {
         return musicList;
