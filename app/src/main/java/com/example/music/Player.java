@@ -62,7 +62,7 @@ public class Player {
             mediaPlayer.prepare();
             mediaPlayer.start();
             playing = music;
-            MainActivity.curentTab.update();
+            MainActivity.currentTab.update();
         } catch (Exception e){
             Log.e("NONAME", "Bug: " + e.getMessage());
             mediaPlayer.release();
@@ -91,10 +91,15 @@ public class Player {
     }
 
     public void play(){
-        mediaPlayer.start();
+        if (playing != null && mediaPlayer != null)
+            mediaPlayer.start();
+        else
+            play(0);
     }
 
     public boolean isPlaying(){
+        if (mediaPlayer == null)
+            return  false;
         return mediaPlayer.isPlaying();
     }
 

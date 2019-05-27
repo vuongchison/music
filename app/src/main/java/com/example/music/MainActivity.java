@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity{
 
     public static Player player;
 
-    public static Tab curentTab;
+    public static Tab currentTab;
     public static final int RUNTIME_PERMISSION_CODE = 7;
 
-    private ImageView nextBtn, playBtn, prevBtn, repeatBtn, shuffleBtn;
+    public static ImageView nextBtn, playBtn, prevBtn, repeatBtn, shuffleBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +74,10 @@ public class MainActivity extends AppCompatActivity{
                 Log.d("VCS", "onClick: click pause");
                 if (player.isPlaying()){
                     player.pause();
+                    playBtn.setImageResource(R.drawable.play);
                 }else {
                     player.play();
+                    playBtn.setImageResource(R.drawable.pause);
                 }
             }
         });
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity{
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         viewPager.setCurrentItem(0);
-        curentTab = PagerAdapter.tab1;
+        currentTab = PagerAdapter.tab1;
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
@@ -129,20 +131,20 @@ public class MainActivity extends AppCompatActivity{
 
                 switch (tab.getPosition()){
                     case 0:
-                        curentTab = PagerAdapter.tab1;
+                        currentTab = PagerAdapter.tab1;
                         break;
                     case 1:
                         //Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab2.data);
-                        curentTab = PagerAdapter.tab2;
+                        currentTab = PagerAdapter.tab2;
                         break;
                     case 2:
                         //Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab3.data);
-                        curentTab = PagerAdapter.tab3;
+                        currentTab = PagerAdapter.tab3;
                         break;
                 }
 
                 viewPager.setCurrentItem(tab.getPosition());
-                curentTab.update();
+                currentTab.update();
 
             }
 

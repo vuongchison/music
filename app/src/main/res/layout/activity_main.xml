@@ -52,7 +52,7 @@
         </android.support.v4.view.ViewPager>
     </LinearLayout>
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/playBar"
         android:layout_width="match_parent"
         android:layout_height="46dp"
@@ -65,49 +65,51 @@
             android:id="@+id/shuffle"
             android:layout_width="47dp"
             android:layout_height="match_parent"
-            android:src="@drawable/shuffle" />
+            android:src="@drawable/shuffle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/prev"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
+            android:layout_marginStart="44dp"
             android:layout_marginTop="0dp"
-            android:layout_marginEnd="-141dp"
-            android:layout_toStartOf="@+id/play"
-            android:src="@drawable/prev" />
+            android:src="@drawable/prev"
+            app:layout_constraintStart_toEndOf="@+id/shuffle"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/play"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignStart="@+id/shuffle"
-            android:layout_alignEnd="@+id/repeat"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="180dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginStart="184dp"
             android:layout_marginEnd="181dp"
-            android:src="@drawable/pause" />
+            android:src="@drawable/play"
+            app:layout_constraintEnd_toEndOf="@+id/repeat"
+            app:layout_constraintStart_toStartOf="@+id/shuffle"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/next"
             android:layout_width="46dp"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="52dp"
-            android:layout_toStartOf="@+id/repeat"
-            android:src="@drawable/next" />
+            android:src="@drawable/next"
+            app:layout_constraintEnd_toStartOf="@+id/repeat"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/repeat"
             android:layout_width="45dp"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
-            android:src="@drawable/repeat" />
+            android:src="@drawable/repeat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
 </RelativeLayout>
