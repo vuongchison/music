@@ -33,12 +33,6 @@ import java.util.ArrayList;
 
 public class Tab1 extends Tab {
 
-    @Override
-    public void setArguments(@Nullable Bundle args) {
-        super.setArguments(args);
-        Log.d("VCS", "setArguments: ");
-    }
-
     ListView mListView;
 
     ArrayAdapter mAdapter;

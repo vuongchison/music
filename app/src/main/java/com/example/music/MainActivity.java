@@ -91,10 +91,12 @@ public class MainActivity extends AppCompatActivity{
                 if (player.isRepeat())
                 {
                     player.setRepeat(false);
+                    repeatBtn.setImageResource(R.drawable.repeat);
                 }
                 else
                 {
                     player.setRepeat(true);
+                    repeatBtn.setImageResource(R.drawable.repeat_on);
                 }
             }
         });
@@ -104,9 +106,11 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if (player.isShuffle()){
                     player.setShuffle(false);
+                    shuffleBtn.setImageResource(R.drawable.shuffle);
                 }
                 else{
                     player.setShuffle(true);
+                    shuffleBtn.setImageResource(R.drawable.shuffle_on);
                 }
             }
         });
@@ -153,26 +157,10 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                //Log.d("VCS", "onTabUnselected: " + tab.getPosition() + tab.view);
-//                switch (tab.getPosition()){
-//                    case 0:
-//                        Log.d("VCS", "onTabSelected: " + PagerAdapter.tab1.data);
-//                        playing = PagerAdapter.tab1.playing;
-//                        break;
-//                    case 1:
-//                        Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab2.data);
-//                        break;
-//                    case 2:
-//                        Log.d("VCS", "onTabSelected: "+ PagerAdapter.tab3.data);
-//
-//
-//                        break;
-//                }
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }

@@ -27,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Music {
     private  String filename = null;
@@ -93,6 +94,24 @@ public class Music {
         return null;
     }
 
+    private static HashMap<Integer, String> getAllAlbum(ContentResolver content){
+        Cursor cursor =  content.query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                new String[] {MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART}, null, null, null);
+        HashMap res = new HashMap<Integer, String>();
+        if (cursor != null && cursor.moveToFirst()) {
+            int idColumn = cursor.getColumnIndex(MediaStore.Audio.Albums._ID);
+            int artColumn = cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART);
+            do {
+                int id = cursor.getInt(idColumn);
+                String art = cursor.getString(artColumn);
+                res.put(id, art);
+
+            } while (cursor.moveToNext());
+
+        }
+        return res;
+    }
+
     public byte[] getArtwork(){
         if (albumArt != null){
             File file = new File(albumArt);
@@ -140,6 +159,8 @@ public class Music {
 
         ContentResolver contentResolver = context.getContentResolver();
 
+        HashMap allAlbumArt = getAllAlbum(contentResolver);
+
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 
         Cursor cursor = contentResolver.query(
@@ -150,38 +171,18 @@ public class Music {
                 null
         );
 
-        if (cursor == null) {
-
-            //Toast.makeText(MainActivity.this,"Something Went Wrong.", Toast.LENGTH_LONG);
-
-        } else if (!cursor.moveToFirst()) {
-
-            //Toast.makeText(MainActivity.this,"No Music Found on SD Card.", Toast.LENGTH_LONG);
-
-        }
-        else {
-
-            int Title = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-
-            //Getting Song ID From Cursor.
-            //int id = cursor.getColumnIndex(MediaStore.Audio.Media._ID);
-
+        if (cursor != null && cursor.moveToFirst()) {
+            int Column = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
+            int filenameColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+            int singerColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
+            int albumIdColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID);
             do {
-
-                // You can also get the Song ID using cursor.getLong(id).
-                //long SongID = cursor.getLong(id);
-//                cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART);
-                String songTitle = cursor.getString(Title);
-                //Log.d("VCS", "GetAllMediaMp3Files: " + uri + '/' + cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)));
-                //Log.d("VCS", "GetAllMediaMp3Files: " + cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
-                String filename = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
-                //Log.d("VCS", "filename:" + filename);
-                String singer = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-
-                    int albumId = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-                    Log.d("VCS", "getAll: " + albumId);
-                    Music m = new Music(filename, songTitle, singer, getAlbumArtPath(albumId, contentResolver));
-                    res.add(m);
+                String songTitle = cursor.getString(Column);
+                String filename = cursor.getString(filenameColumn);
+                String singer = cursor.getString(singerColumn);
+                int albumId = cursor.getInt(albumIdColumn);
+                Music m = new Music(filename, songTitle, singer, (String)allAlbumArt.get(albumId));
+                res.add(m);
 
 
 

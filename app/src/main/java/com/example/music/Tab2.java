@@ -33,7 +33,6 @@ public class Tab2 extends Tab {
         Music playing = getPlaying();
         if (playing != null && playing != this.playing) {
             this.playing = playing;
-            Log.d("VCS", "updateImage: " + playing.getTitle());
             byte[] imageData = playing.getArtwork();
             if (imageData != null)
                 image.setImageBitmap(BitmapFactory.decodeByteArray(imageData, 0, imageData.length));
