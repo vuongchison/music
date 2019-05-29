@@ -41,11 +41,16 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        context = getApplication().getApplicationContext();
-        player = new Player(context);
+
 
         AndroidRuntimePermission();
 
+
+    }
+
+    private void createLayout(){
+        context = getApplication().getApplicationContext();
+        player = new Player(context);
         nextBtn = findViewById(R.id.next);
         prevBtn = findViewById(R.id.prev);
         playBtn = findViewById(R.id.play);
@@ -114,10 +119,6 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
-
-    }
-
-    private void createLayout(){
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText("Dsách nhạc"));
         tabLayout.addTab(tabLayout.newTab().setText("Đang phát"));
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity{
 
     }
     public void AndroidRuntimePermission(){
-
+        Log.d("VCS", "AndroidRuntimePermission: ");
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
 
             if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
